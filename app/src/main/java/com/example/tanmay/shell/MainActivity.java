@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Glide.with(this).load(path).into(background);
     }
     private void full_screen(){
-      //  requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void initialise(){
 
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-
         signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setScopes(googleSignInOptions.getScopeArray());
@@ -92,11 +91,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK&&requestCode==SIGN_IN_CONST){
+        if(requestCode==SIGN_IN_CONST){
             GoogleSignInResult acct = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if(acct.isSuccess()){
                 GoogleSignInAccount account = acct.getSignInAccount();
-               // display("Name is : "+account.getDisplayName()+"\nEmail is: "+account.getEmail());
+                display("Name is : "+account.getDisplayName()+"\nEmail is: "+account.getEmail());
                 Intent i = new Intent(this,Details.class);
                 i.putExtra("name", account.getDisplayName());
                 i.putExtra("email",account.getEmail());
@@ -105,10 +104,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }else{
                 display("Invalid id & password");
             }
+        }else{
+            display("There is some problem with the sign in");
         }
     }
-
-   
 
     @Override
     public void onResume() {
