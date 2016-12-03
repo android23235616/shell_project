@@ -85,7 +85,7 @@ public class Details extends AppCompatActivity {
         hostel_spinner.setAdapter(arrayAdapter);
     }
 
-    //test comment
+    
 
     private void setAnimations(Animation blink, View profile_pic) {
         profile_pic.startAnimation(blink);
