@@ -38,7 +38,8 @@ public class Details extends AppCompatActivity {
     LinearLayout editText_wrapper, spinner_wrapper;
     Animation blink,slide_left;
     private int tracker=0;
-    String hostel_name;
+
+    String name, number, hostel, room, email,token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class Details extends AppCompatActivity {
        hostel_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
            @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               hostel_name = parent.getItemAtPosition(position).toString();
+               hostel = parent.getItemAtPosition(position).toString();
            }
 
            @Override
@@ -92,6 +93,8 @@ public class Details extends AppCompatActivity {
     }
 
     private void setNullData() {
+        name="Tanmay";
+        email="majumdartanmay68@gmail.com";
         Name.setText("Hello, Tanmay");
         String path="http://cdn1.blog-media.zillowstatic.com/1/Robert-Pattinson-IMDb-bd3782.jpg";
         Glide.with(this).load(path).into(profile_pic);
@@ -108,11 +111,12 @@ public class Details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tracker++;
-                TrackerVisibilityChecker(tracker);
-                setAnimations(slide_left, phone);
-                phone.setText("");
                 setAnimations(slide_left,hostel_spinner);
+                setAnimations(slide_left, phone);
+                number = phone.getText().toString();
+                phone.setText("");
                 phone.setHint("Enter Room Number:  ");
+                TrackerVisibilityChecker(tracker);
             }
         });
 
@@ -120,17 +124,19 @@ public class Details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tracker--;
-                TrackerVisibilityChecker(tracker);
                 setAnimations(slide_left, hostel_spinner);
+                room = phone.getText().toString();
                 phone.setText("");
                 phone.setHint("Phone Number: ");
                 setAnimations(slide_left, phone);
+                TrackerVisibilityChecker(tracker);
             }
         });
     }
 
     private void TrackerVisibilityChecker(int tracker) {
         if(tracker==0){
+
             editText_wrapper.setVisibility(View.VISIBLE);
             spinner_wrapper.setVisibility(View.GONE);
             Next.setVisibility(View.VISIBLE);
@@ -142,11 +148,13 @@ public class Details extends AppCompatActivity {
             spinner_wrapper.setVisibility(View.VISIBLE);
             Next.setVisibility(View.VISIBLE);
             Back.setVisibility(View.VISIBLE);
-        }else{
+        }else if(tracker==2){
             editText_wrapper.setVisibility(View.VISIBLE);
             spinner_wrapper.setVisibility(View.GONE);
-            Next.setVisibility(View.GONE);
+            Next.setText("Done");
             Back.setVisibility(View.VISIBLE);
+        }else{
+            printLog("Name: ");
         }
     }
 
@@ -159,6 +167,8 @@ public class Details extends AppCompatActivity {
 
         String n="null";
         n = b.getStringExtra("name");
+        name=n;
+        email = b.getStringExtra("email");
         if (n==null) {
             setNullData();
         } else {
