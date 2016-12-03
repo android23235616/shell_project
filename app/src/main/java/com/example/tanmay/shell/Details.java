@@ -1,6 +1,8 @@
 package com.example.tanmay.shell;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,11 +21,23 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,27 +52,107 @@ public class Details extends AppCompatActivity {
     LinearLayout editText_wrapper, spinner_wrapper;
     Animation blink,slide_left;
     private int tracker=0;
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     String name, number, hostel, room, email,token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-
         initialise();
         spinner_wrapper.setVisibility(View.GONE);
-
         i = getIntent();
         if(i!=null){
             setData(i);
         }else{
             setNullData();
         }
+        registrationAction();
         setAnimations(this.blink,this.Name);
         Click();
         setChildTypeface();
         setUpSpinner();
         spinnerItemClick();
+    }
+
+    private void registrationAction() {
+        if(isRegistered()){
+            display("This device is registered");
+        }else{
+            display("This device is not registered");
+
+        }
+    }
+
+    private void registerDevice(){
+        Firebase firebase = new Firebase(Constants.FIREBASE_URL);
+        Firebase newFirebase = firebase.push();
+        Map<String,String> map = new HashMap<>();
+        map.put("name",name);
+        map.put("email",email);
+        map.put("phone",number);
+        map.put("hostel",hostel);
+        map.put("room", room);
+        newFirebase.setValue(map);
+        String id = newFirebase.getKey();
+        sendToServer(id);
+
+    }
+
+    private void sendToServer(final String id) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading data to server...");
+        progressDialog.show();
+        StringRequest sr = new StringRequest(Request.Method.POST, Constants.USER_REGISTRATION_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressDialog.dismiss();
+                if(response.equals("success")){
+                    //device has been registered
+                    editor.putBoolean(Constants.REGISTERED, true);
+                    editor.apply();
+                    display("Data uploaded successfully");
+                }else{
+                    display("Unable to upload data");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                display(error.toString());
+            }
+
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("name",name);
+                map.put("email",email);
+                map.put("phone",number);
+                map.put("hostel",hostel);
+                map.put("room",room);
+                map.put("token",id);
+                return map;
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(sr);
+
+        sr.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+    }
+
+    private void display(String s) {
+
+        Toast.makeText(this,s,Toast.LENGTH_LONG).show();
+    }
+
+    private boolean isRegistered(){
+        return sharedPreferences.getBoolean(Constants.REGISTERED,false);
     }
 
     private void spinnerItemClick() {
@@ -113,7 +207,10 @@ public class Details extends AppCompatActivity {
                 tracker++;
                 setAnimations(slide_left,hostel_spinner);
                 setAnimations(slide_left, phone);
-                number = phone.getText().toString();
+                if(tracker==1)
+                    number = phone.getText().toString();
+                else
+                    room = phone.getText().toString();
                 phone.setText("");
                 phone.setHint("Enter Room Number:  ");
                 TrackerVisibilityChecker(tracker);
@@ -154,7 +251,9 @@ public class Details extends AppCompatActivity {
             Next.setText("Done");
             Back.setVisibility(View.VISIBLE);
         }else{
-            printLog("Name: ");
+            registerDevice();
+
+            printLog("Name: " + name + " number: " + number + " email: " + email + " hostel: " + hostel + " room: " + room);
         }
     }
 
@@ -190,6 +289,8 @@ public class Details extends AppCompatActivity {
         slide_left = AnimationUtils.loadAnimation(this,R.anim.slide_left);
         editText_wrapper = (LinearLayout)findViewById(R.id.edittext_wrapper);
         spinner_wrapper = (LinearLayout)findViewById(R.id.spinner_wrapper);
+        sharedPreferences = getSharedPreferences(Constants.SHARED_PREF,MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     private void setTypeFace(View v){
@@ -198,8 +299,5 @@ public class Details extends AppCompatActivity {
         ((TextView)v).setTypeface(t);
     }
 
-    private void remove_status_bar(){
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
+
 }
