@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
-    //text jahsdljasdl;akjdslasjkdladjsk
+   
 
     @Override
     public void onResume() {
