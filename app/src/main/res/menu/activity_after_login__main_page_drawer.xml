@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/f"  android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+        </group>
+<group  android:id="@+id/e" android:checkableBehavior="single">
+        <item
+            android:id="@+id/send_request"
+            android:icon="@drawable/send"
+            android:title="Sent Requests" />
+    </group>
+    <group   android:id="@+id/d" android:checkableBehavior="single">
+        <item
+            android:id="@+id/received_request"
+            android:icon="@drawable/received"
+            android:title="Received Requests" />
+</group>
+   <group    android:id="@+id/c" android:checkableBehavior="single">
+    <item
+            android:id="@+id/Uploading"
+            android:icon="@drawable/upload"
+            android:title="Upload" />
+</group>
+    <group  android:id="@+id/b" android:checkableBehavior="single">
+        <item
+            android:id="@+id/Profile"
+            android:icon="@drawable/profile"
+            android:title="Profile" />
+        </group>
+    <group  android:id="@+id/a" android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="SignOut" />
+    </group>
+
+</menu>

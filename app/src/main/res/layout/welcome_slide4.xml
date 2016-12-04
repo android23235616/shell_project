@@ -11,15 +11,15 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="200dp"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
             android:src="@drawable/stationary"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Stationary"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
             android:paddingRight="@dimen/desc_padding"
             android:text="@string/slide_4_desc"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/slide_desc" />
 
     </LinearLayout>
