@@ -1,5 +1,6 @@
 package com.example.tanmay.shell;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,33 +13,49 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class Upload extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    Toolbar toolbar;
+    DrawerLayout drawer;
+    ActionBarDrawerToggle toggle;
+    NavigationView navigationView;
+    TextView games_text, movies_text, others_text, stationary_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         initialise();
+        setChildTypeface();
+    }
+
+    private void setChildTypeface(){
+        setTypeFace(this.games_text);
+        setTypeFace(this.movies_text);
+        setTypeFace(this.stationary_text);
+        setTypeFace(this.others_text);
+    }
+
+    private void setTypeFace(View v){
+
+        Typeface t = Typeface.createFromAsset(getAssets(), "fonts/android.ttf");
+        ((TextView)v).setTypeface(t);
+    }
+
+    private void initialise(){
+        games_text = (TextView)findViewById(R.id.games_text);
+        movies_text = (TextView)findViewById(R.id.movies_text);
+        others_text = (TextView)findViewById(R.id.others_text);
+        stationary_text = (TextView)findViewById(R.id.stationary_text);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 

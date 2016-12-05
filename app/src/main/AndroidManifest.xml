@@ -17,7 +17,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -42,7 +42,15 @@
         <activity
             android:name=".Upload"
             android:label="@string/title_activity_upload"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Main_Menu"
             android:label="@string/title_activity_main__menu"

@@ -9,7 +9,9 @@
     <color name="hint_color">#BFC9CA</color>
     <color name="editTextBackground">#17202A</color>
     <color name="transparent_background">@android:color/transparent</color>
-
+    <color name="transparent_white">#80ffffff</color>
+    <color name="grey">#34495E</color>
+    <color name="transparent_grey">#8017202a</color>
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>
     <color name="bg_screen2">#20d2bb</color>
