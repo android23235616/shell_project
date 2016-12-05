@@ -52,8 +52,9 @@ public class Details extends AppCompatActivity {
     LinearLayout editText_wrapper, spinner_wrapper;
     Animation blink,slide_left;
     private int tracker=0;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences,usersharedpref;
+    private String url;
+    SharedPreferences.Editor editor,userEditor;
     String name, number, hostel, room, email,token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,7 +253,7 @@ public class Details extends AppCompatActivity {
             Back.setVisibility(View.VISIBLE);
         }else{
             registerDevice();
-
+            saveUserDataToSharedPref(name,email,token,url,hostel,room,number);
             printLog("Name: " + name + " number: " + number + " email: " + email + " hostel: " + hostel + " room: " + room);
         }
     }
@@ -262,7 +263,7 @@ public class Details extends AppCompatActivity {
     }
 
     private void setData(Intent b) {
-        String url = b.getStringExtra("icon");
+         url = b.getStringExtra("icon");
 
         String n="null";
         n = b.getStringExtra("name");
@@ -274,6 +275,16 @@ public class Details extends AppCompatActivity {
             Name.setText("Hello, " + n);
             Glide.with(this).load(url).into(profile_pic);
         }
+    }
+    private void saveUserDataToSharedPref(String name, String email, String token, String profile_pic, String hostel, String room, String number){
+        userEditor.putString("name",name);
+        userEditor.putString("email",email);
+        userEditor.putString("token",token);
+        userEditor.putString("profile_pic", profile_pic);
+        userEditor.putString("hostel",hostel);
+        userEditor.putString("room",room);
+        userEditor.putString("number",number);
+
     }
 
     private void initialise(){
@@ -291,6 +302,8 @@ public class Details extends AppCompatActivity {
         spinner_wrapper = (LinearLayout)findViewById(R.id.spinner_wrapper);
         sharedPreferences = getSharedPreferences(Constants.SHARED_PREF,MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        usersharedpref = getSharedPreferences(Constants.USER_DATA_SHARED_PREF,MODE_PRIVATE);
+        userEditor = usersharedpref.edit();
     }
 
     private void setTypeFace(View v){
