@@ -1,6 +1,7 @@
 package com.example.tanmay.shell;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,31 +27,39 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions googleSignInOptions;
     private final int SIGN_IN_CONST=1000;
-    private int height, width;
+
     private ImageView background;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getDimensions();
+
         initialise();
         Click();
+        checkForRegistration();
         full_screen();
         imageBackground();
+    }
+
+    private void checkForRegistration() {
+        if(isRegistered())
+        {
+            startActivity(new Intent(this,Main_Menu.class));
+            finish();
+        }
+    }
+
+    private boolean isRegistered(){
+        return sharedPreferences.getBoolean(Constants.REGISTERED,false);
     }
 
     private void display(String s){
         Toast.makeText(this,s,Toast.LENGTH_LONG).show();
     }
 
-    private void getDimensions(){
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-         width = size.x;
-         height = size.y;
-    }
 
     private void imageBackground(){
         String path="http://www.hostelbelgrade.com/images/hostel-belgrade-eye-03.jpg";
@@ -64,15 +73,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void initialise(){
-
+        sharedPreferences = getSharedPreferences(Constants.SHARED_PREF,MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setScopes(googleSignInOptions.getScopeArray());
         signInButton.setColorScheme(SignInButton.COLOR_DARK);
         background = (ImageView)findViewById(R.id.background);
-        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions).build();
-
+        googleApiClient = new GoogleApiClient.Builder(this).
+                enableAutoManage(this,this).
+                addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions).build();
     }
 
     private void Click(){

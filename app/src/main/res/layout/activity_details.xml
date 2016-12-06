@@ -54,7 +54,7 @@
         android:background="@drawable/background_circle"
         android:id="@+id/profile_pic"
         android:layout_height="200dp"
-       android:src="@drawable/dorm"
+
         />
 <FrameLayout
     android:layout_width="match_parent"
