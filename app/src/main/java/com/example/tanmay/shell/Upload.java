@@ -13,7 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class Upload extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,11 +25,14 @@ public class Upload extends AppCompatActivity
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
     TextView games_text, movies_text, others_text, stationary_text;
+    ImageView other_image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
          initialise();
+        //set others image
+        setOther_image();
         setChildTypeface();
     }
 
@@ -57,8 +63,13 @@ public class Upload extends AppCompatActivity
         toggle.syncState();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        other_image = (ImageView)findViewById(R.id.imageViewOthers);
     }
 
+    private void setOther_image(){
+        int path = R.drawable.others;
+        Glide.with(this).load(path).into(other_image);
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
