@@ -1,5 +1,7 @@
 package com.example.tanmay.shell;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +24,14 @@ import com.bumptech.glide.Glide;
 
 public class Upload extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    Toolbar toolbar;
+    Toolbar toolbar,menu_toolbar;
     DrawerLayout drawer;
+    Animation slide_up, slide_down;
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
     TextView games_text, movies_text, others_text, stationary_text;
-    ImageView other_image;
+    ImageView other_image,stationary_image, movies_image,games_image;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +39,51 @@ public class Upload extends AppCompatActivity
          initialise();
         //set others image
         setOther_image();
+        //slide down the menu_toolbar
+
         setChildTypeface();
+        Click();
+    }
+
+    private void doAnimation(View v, Animation m){
+        v.startAnimation(m);
+    }
+
+    private void Click() {
+       final Intent i = new Intent(this,upload_form.class);
+        other_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i.putExtra("others",1);
+                doAnimation(Upload.this.menu_toolbar,slide_up);
+            }
+        });
+
+        movies_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i.putExtra("movies",2);
+                if(menu_toolbar.getAlpha()==0)
+                    menu_toolbar.setAlpha(1);
+                doAnimation(Upload.this.menu_toolbar, slide_up);
+            }
+        });
+
+        stationary_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i.putExtra("stationary",3);
+                doAnimation(Upload.this.menu_toolbar, slide_up);
+            }
+        });
+
+        games_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i.putExtra("games", 4);
+                doAnimation(Upload.this.menu_toolbar,slide_up);
+            }
+        });
     }
 
     private void setChildTypeface(){
@@ -50,13 +100,17 @@ public class Upload extends AppCompatActivity
     }
 
     private void initialise(){
+
         games_text = (TextView)findViewById(R.id.games_text);
         movies_text = (TextView)findViewById(R.id.movies_text);
         others_text = (TextView)findViewById(R.id.others_text);
         stationary_text = (TextView)findViewById(R.id.stationary_text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        menu_toolbar = (Toolbar) findViewById(R.id.menu_toolbar);
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        slide_down = AnimationUtils.loadAnimation(this,R.anim.slide_down);
+        slide_up = AnimationUtils.loadAnimation(this,R.anim.slide_up);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -64,6 +118,9 @@ public class Upload extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         other_image = (ImageView)findViewById(R.id.imageViewOthers);
+        movies_image = (ImageView)findViewById(R.id.imageViewMovie);
+        stationary_image = (ImageView)findViewById(R.id.imageViewStationary);
+        games_image = (ImageView)findViewById(R.id.imageViewGame);
     }
 
     private void setOther_image(){
