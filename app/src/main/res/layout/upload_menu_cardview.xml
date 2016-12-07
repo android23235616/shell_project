@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/imageViewMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/movie_cover"
@@ -64,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/imageViewGame"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/game_cover"
@@ -103,6 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/imageViewStationary"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/stationary_cover"
@@ -141,6 +144,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+
+                    android:id="@+id/imageViewOthers"
                     android:layout_width="match_parent"
                     android:src="@drawable/other_cover"
                     android:layout_height="match_parent"

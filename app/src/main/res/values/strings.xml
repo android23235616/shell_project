@@ -27,6 +27,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main__menu">Main_Menu</string>
+    <string name="title_activity_upload_form">upload_form</string>
 
 
 </resources>
