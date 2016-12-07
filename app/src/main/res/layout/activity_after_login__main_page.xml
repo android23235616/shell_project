@@ -20,6 +20,7 @@
         app:itemIconTint="#27AE60"
         android:layout_gravity="start"
         android:background="#000000"
+        android:layout_marginTop="81dp"
         app:theme="@style/NavigationDrawerStyle"
         app:itemTextColor="#ffffff"
         android:fitsSystemWindows="true"

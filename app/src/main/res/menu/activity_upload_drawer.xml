@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/f"  android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/home"
+            android:icon="@drawable/home"
+            android:title="Home" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+    <group  android:id="@+id/e" android:checkableBehavior="single">
+        <item
+            android:id="@+id/send_request"
+            android:icon="@drawable/send"
+            android:title="Sent Requests" />
+    </group>
+    <group   android:id="@+id/d" android:checkableBehavior="single">
+        <item
+            android:id="@+id/received_request"
+            android:icon="@drawable/received"
+            android:title="Received Requests" />
+    </group>
+    <group    android:id="@+id/c" android:checkableBehavior="single">
+        <item
+            android:id="@+id/Uploading"
+            android:icon="@drawable/upload"
+            android:title="Upload" />
+    </group>
+    <group  android:id="@+id/b" android:checkableBehavior="single">
+        <item
+            android:id="@+id/Profile"
+            android:icon="@drawable/profile"
+            android:title="Profile" />
+    </group>
+    <group  android:id="@+id/a" android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="SignOut" />
+    </group>
 
 </menu>

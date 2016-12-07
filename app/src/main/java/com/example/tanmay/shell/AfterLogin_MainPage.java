@@ -81,7 +81,8 @@ public class AfterLogin_MainPage extends AppCompatActivity
 
         } else if (id == R.id.Profile) {
 
-        } else if (id == R.id.logout) {
+        } else if (id == R.id.logout)
+        {
 
         }
         else if(id==R.id.home)
