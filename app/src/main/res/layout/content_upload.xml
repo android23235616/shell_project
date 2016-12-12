@@ -57,7 +57,7 @@
                 android:id="@+id/first"
                 android:backgroundTintMode="src_in"
                 android:textColor="#000000"
-                android:hint="Start tying..."/>
+                android:hint="Start typing..."/>
 
 
         </LinearLayout>
