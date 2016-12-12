@@ -19,13 +19,46 @@
 
 
 </RelativeLayout>
+
     <android.support.v7.widget.Toolbar
+
         android:alpha="0"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:id="@+id/menu_toolbar"
-        android:background="@color/colorBackground"
+        android:layout_margin="7dp"
+       android:background="@drawable/foreground"
         android:layout_gravity="bottom">
+
+
+        <Button
+            android:layout_width="28dp"
+            android:layout_height="30dp"
+            android:id="@+id/toolbar_button_Upload"
+            android:text="+"
+           android:layout_marginBottom="60dp"
+            android:textSize="26dp"
+            android:background="@null"
+            />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:layout_width="320dp"
+            android:layout_marginLeft="40dp"
+            android:layout_height="100dp"
+            android:id="@+id/linearLayout"
+            android:layout_marginBottom="20dp"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF00FF"
+                android:id="@+id/first"
+                android:backgroundTintMode="src_in"
+                android:textColor="#000000"
+                android:hint="Start tying..."/>
+        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 </FrameLayout>

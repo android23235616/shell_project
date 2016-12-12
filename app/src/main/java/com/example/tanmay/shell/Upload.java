@@ -2,10 +2,13 @@ package com.example.tanmay.shell;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,11 +20,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Upload extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +42,14 @@ public class Upload extends AppCompatActivity
     TextView games_text, movies_text, others_text, stationary_text;
     ImageView other_image,stationary_image, movies_image,games_image;
     Context context;
+
+    //for edittext dynamically
+    Button upoad_toolbar_button;
+    LinearLayout linearLayout;
+    EditText editText;
+    List<EditText> allEds  =new ArrayList<>();
+    static int TotalEditText=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +61,37 @@ public class Upload extends AppCompatActivity
 
         setChildTypeface();
         Click();
+
+        dynamic_edittext_onclick();
+            }
+
+    private void dynamic_edittext_onclick() {
+        upoad_toolbar_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TotalEditText++;
+                if(TotalEditText>100)
+                {
+                    return;
+                }
+                else
+                {
+                    editText=new EditText(getBaseContext());
+                    allEds.add(editText);
+                    linearLayout.addView(editText);
+                    editText.setGravity(Gravity.TOP);
+                    editText.setTextColor(Color.WHITE);
+                    editText.setId(TotalEditText);
+
+                    editText.getBackground().setColorFilter(Color.CYAN,PorterDuff.Mode.SRC_IN);
+                    LinearLayout.LayoutParams layoutParams=(LinearLayout.LayoutParams) editText.getLayoutParams();
+                    layoutParams.setMargins(23,24,0,0);
+                    editText.setLayoutParams(layoutParams);
+
+                }
+            }
+        });
+
     }
 
     private void doAnimation(View v, Animation m){
@@ -100,7 +148,11 @@ public class Upload extends AppCompatActivity
         ((TextView)v).setTypeface(t);
     }
 
+
     private void initialise(){
+
+        upoad_toolbar_button=(Button)findViewById(R.id.toolbar_button_Upload);
+        linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
 
         games_text = (TextView)findViewById(R.id.games_text);
         movies_text = (TextView)findViewById(R.id.movies_text);
@@ -191,4 +243,6 @@ public class Upload extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
