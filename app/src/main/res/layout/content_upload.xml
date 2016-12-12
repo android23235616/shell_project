@@ -48,16 +48,18 @@
             android:layout_marginLeft="40dp"
             android:layout_height="100dp"
             android:id="@+id/linearLayout"
-            android:layout_marginBottom="20dp"
-            >
-            <EditText
+            android:layout_marginBottom="20dp">
+
+                <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FF00FF"
+                android:backgroundTint="#000000"
                 android:id="@+id/first"
                 android:backgroundTintMode="src_in"
                 android:textColor="#000000"
                 android:hint="Start tying..."/>
+
+
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>

@@ -32,8 +32,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Upload extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Upload extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar,menu_toolbar;
     DrawerLayout drawer;
     Animation slide_up, slide_down;
@@ -83,7 +82,7 @@ public class Upload extends AppCompatActivity
                     editText.setTextColor(Color.WHITE);
                     editText.setId(TotalEditText);
 
-                    editText.getBackground().setColorFilter(Color.CYAN,PorterDuff.Mode.SRC_IN);
+                    editText.getBackground().setColorFilter(Color.BLACK,PorterDuff.Mode.SRC_IN);
                     LinearLayout.LayoutParams layoutParams=(LinearLayout.LayoutParams) editText.getLayoutParams();
                     layoutParams.setMargins(23,24,0,0);
                     editText.setLayoutParams(layoutParams);
