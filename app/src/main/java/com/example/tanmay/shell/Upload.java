@@ -2,6 +2,7 @@ package com.example.tanmay.shell;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,18 +34,22 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Upload extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar,menu_toolbar;
     DrawerLayout drawer;
     Animation slide_up, slide_down;
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
-    TextView games_text, movies_text, others_text, stationary_text;
+    TextView games_text, movies_text, others_text, stationary_text,toolbar_name;
     ImageView other_image,stationary_image, movies_image,games_image;
     Context context;
-
+    String name,profile_ic;
+    CircleImageView profile_pic;
     //for edittext dynamically
     Button upoad_toolbar_button;
+    SharedPreferences sharedPreferences;
     LinearLayout linearLayout;
     EditText editText;
     List<EditText> allEds  =new ArrayList<>();
@@ -62,6 +68,8 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         Click();
 
         dynamic_edittext_onclick();
+        getData();
+        setData();
             }
 
     private void dynamic_edittext_onclick() {
@@ -69,28 +77,35 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
             @Override
             public void onClick(View v) {
                 TotalEditText++;
-                if(TotalEditText>100)
-                {
+                if (TotalEditText > 100) {
                     return;
-                }
-                else
-                {
-                    editText=new EditText(getBaseContext());
+                } else {
+                    editText = new EditText(getBaseContext());
                     allEds.add(editText);
                     linearLayout.addView(editText);
                     editText.setGravity(Gravity.TOP);
                     editText.setTextColor(Color.WHITE);
                     editText.setId(TotalEditText);
-
-                    editText.getBackground().setColorFilter(Color.BLACK,PorterDuff.Mode.SRC_IN);
-                    LinearLayout.LayoutParams layoutParams=(LinearLayout.LayoutParams) editText.getLayoutParams();
-                    layoutParams.setMargins(23,24,0,0);
+                    editText.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) editText.getLayoutParams();
+                    layoutParams.setMargins(23, 24, 0, 0);
                     editText.setLayoutParams(layoutParams);
 
                 }
             }
         });
 
+    }
+
+    private void getData(){
+        name = sharedPreferences.getString("name","User");
+        profile_ic = sharedPreferences.getString("profile_pic","http://vignette3.wikia.nocookie.net/jamesbond/images/e/ec/James_Bond_Faceless_Profile.png");
+
+    }
+
+    private void setData(){
+        toolbar_name.setText("Hello, "+name);
+        Glide.with(this).load(profile_ic).into(profile_pic);
     }
 
     private void doAnimation(View v, Animation m){
@@ -139,6 +154,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         setTypeFace(this.movies_text);
         setTypeFace(this.stationary_text);
         setTypeFace(this.others_text);
+        setTypeFace(this.toolbar_name);
     }
 
     private void setTypeFace(View v){
@@ -150,16 +166,16 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
     private void initialise(){
 
+
         upoad_toolbar_button=(Button)findViewById(R.id.toolbar_button_Upload);
         linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
-
+        toolbar_name = (TextView)findViewById(R.id.toolbar_content_upload);
         games_text = (TextView)findViewById(R.id.games_text);
         movies_text = (TextView)findViewById(R.id.movies_text);
         others_text = (TextView)findViewById(R.id.others_text);
         stationary_text = (TextView)findViewById(R.id.stationary_text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         menu_toolbar = (Toolbar) findViewById(R.id.menu_toolbar);
-        setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         slide_down = AnimationUtils.loadAnimation(this,R.anim.slide_down);
         slide_up = AnimationUtils.loadAnimation(this,R.anim.slide_up);
@@ -167,12 +183,15 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        sharedPreferences = getSharedPreferences(Constants.USER_DATA_SHARED_PREF,MODE_PRIVATE);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         other_image = (ImageView)findViewById(R.id.imageViewOthers);
         movies_image = (ImageView)findViewById(R.id.imageViewMovie);
         stationary_image = (ImageView)findViewById(R.id.imageViewStationary);
         games_image = (ImageView)findViewById(R.id.imageViewGame);
+        View v =navigationView.getHeaderView(0);
+        profile_pic=(CircleImageView)v.findViewById(R.id.circleImageView);
     }
 
     private void setOther_image(){

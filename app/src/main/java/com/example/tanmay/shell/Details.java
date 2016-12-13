@@ -113,6 +113,9 @@ public class Details extends AppCompatActivity {
                     editor.putBoolean(Constants.REGISTERED, true);
                     editor.apply();
                     display("Data uploaded successfully");
+                    saveUserDataToSharedPref(name, email, token, url, hostel, room, number);
+                    printLog("Name: " + name + " number: " + number + " email: " + email + " hostel: " + hostel + " room: " + room);
+                    startActivity(new Intent(Details.this, Upload.class));
                 }else{
                     display("Unable to upload data");
                 }
@@ -251,10 +254,10 @@ public class Details extends AppCompatActivity {
             spinner_wrapper.setVisibility(View.GONE);
             Next.setText("Done");
             Back.setVisibility(View.VISIBLE);
+
         }else{
             registerDevice();
-            saveUserDataToSharedPref(name,email,token,url,hostel,room,number);
-            printLog("Name: " + name + " number: " + number + " email: " + email + " hostel: " + hostel + " room: " + room);
+
         }
     }
 
@@ -284,7 +287,7 @@ public class Details extends AppCompatActivity {
         userEditor.putString("hostel",hostel);
         userEditor.putString("room",room);
         userEditor.putString("number",number);
-
+        userEditor.commit();
     }
 
     private void initialise(){

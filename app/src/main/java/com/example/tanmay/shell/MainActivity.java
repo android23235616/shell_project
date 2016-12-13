@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions googleSignInOptions;
     private final int SIGN_IN_CONST=1000;
-
     private ImageView background;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
