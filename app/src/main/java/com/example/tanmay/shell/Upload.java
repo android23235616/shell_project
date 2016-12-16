@@ -54,7 +54,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     LinearLayout linearLayout;
     EditText editText;
     EditText up;
-    String mainName="";
+    String mainName="",number;
     int mode;
     List<EditText> allEds  =new ArrayList<>();
     static int TotalEditText=0;
@@ -106,6 +106,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
     private void getData(){
         name = sharedPreferences.getString("name","User");
+        number = sharedPreferences.getString("number","null");
         profile_ic = sharedPreferences.getString("profile_pic","http://vignette3.wikia.nocookie.net/jamesbond/images/e/ec/James_Bond_Faceless_Profile.png");
 
     }
