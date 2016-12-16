@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,10 +83,10 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                 if (TotalEditText > 100) {
                     return;
                 } else {
-                    String[] modeText = {"Other Stuff "," Movies ", "Games ", "Stationary"};
+                    String[] modeText = {"Other Stuff ", " Movies ", "Games ", "Stationary"};
                     editText = new EditText(getBaseContext());
                     allEds.add(editText);
-                    editText.setHint("Enter "+modeText[mode - 1] + "Name "+TotalEditText);
+                    editText.setHint("Enter " + modeText[mode - 1] + "Name " + TotalEditText);
                     linearLayout.addView(editText);
                     editText.setGravity(Gravity.TOP);
                     editText.setTextColor(Color.BLACK);
@@ -94,6 +95,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) editText.getLayoutParams();
                     layoutParams.setMargins(23, 24, 0, 0);
                     editText.setLayoutParams(layoutParams);
+                    display_log(TotalEditText+"");
 
                 }
             }
@@ -110,6 +112,10 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     private void setData(){
         toolbar_name.setText("Hello, "+name);
         Glide.with(this).load(profile_ic).into(profile_pic);
+    }
+
+    private void display_log(String s){
+        Log.i("info", s);
     }
 
     private void doAnimation(View v, Animation m){
@@ -162,7 +168,19 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         Upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                final int EditTextLength = TotalEditText+2;
+                for(int i=0; i<=EditTextLength; i++){
+                    EditText ed;
+                    if(i==0)
+                    {
+                        ed = (EditText)findViewById(R.id.first);
+                        display_log(ed.getText().toString());
+                    }else{
+                        ed = (EditText)findViewById(i);
+                        display_log(ed.getText().toString());
+                    }
+                    display_log(i+"");
+                }
             }
         });
     }
