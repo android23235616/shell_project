@@ -48,10 +48,12 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     String name,profile_ic;
     CircleImageView profile_pic;
     //for edittext dynamically
-    Button upoad_toolbar_button;
+    Button upoad_toolbar_button,Upload;
     SharedPreferences sharedPreferences;
     LinearLayout linearLayout;
     EditText editText;
+    EditText up;
+    int mode;
     List<EditText> allEds  =new ArrayList<>();
     static int TotalEditText=0;
 
@@ -80,11 +82,13 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                 if (TotalEditText > 100) {
                     return;
                 } else {
+                    String[] modeText = {"Other Stuff "," Movies ", "Games ", "Stationary"};
                     editText = new EditText(getBaseContext());
                     allEds.add(editText);
+                    editText.setHint("Enter "+modeText[mode - 1] + "Name "+TotalEditText);
                     linearLayout.addView(editText);
                     editText.setGravity(Gravity.TOP);
-                    editText.setTextColor(Color.WHITE);
+                    editText.setTextColor(Color.BLACK);
                     editText.setId(TotalEditText);
                     editText.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) editText.getLayoutParams();
@@ -113,21 +117,26 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     }
 
     private void Click() {
-       final Intent i = new Intent(this,upload_form.class);
+        final int TotalEditText = this.TotalEditText+1;
+        final String[] modeText = {"Other Stuff "," Movies ", "Games ", "Stationary"};
         other_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i.putExtra("others",1);
-                doAnimation(Upload.this.menu_toolbar,slide_up);
+                mode=1;
+                up.setHint("Enter "+modeText[mode-1]+"Name "+TotalEditText);
+                doAnimation(Upload.this.menu_toolbar, slide_up);
             }
         });
 
         movies_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i.putExtra("movies",2);
+               mode=2;
+
+                up.setHint("Enter Movie "+TotalEditText);
                 if(menu_toolbar.getAlpha()==0)
                     menu_toolbar.setAlpha(1);
+                up.setHint("Enter "+modeText[mode-1]+"Name "+TotalEditText);
                 doAnimation(Upload.this.menu_toolbar, slide_up);
             }
         });
@@ -135,16 +144,25 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         stationary_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i.putExtra("stationary",3);
+               mode=3;
                 doAnimation(Upload.this.menu_toolbar, slide_up);
+                up.setHint("Enter " + modeText[mode - 1] + "Name " + TotalEditText);
             }
         });
 
         games_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i.putExtra("games", 4);
+               mode=4;
                 doAnimation(Upload.this.menu_toolbar,slide_up);
+                up.setHint("Enter "+modeText[mode-1]+"Name "+TotalEditText);
+            }
+        });
+
+        Upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -165,6 +183,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
 
     private void initialise(){
+        Upload = (Button)findViewById(R.id.upload);
         upoad_toolbar_button=(Button)findViewById(R.id.toolbar_button_Upload);
         linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
         toolbar_name = (TextView)findViewById(R.id.toolbar_content_upload);
@@ -190,6 +209,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         games_image = (ImageView)findViewById(R.id.imageViewGame);
         View v =navigationView.getHeaderView(0);
         profile_pic=(CircleImageView)v.findViewById(R.id.circleImageView);
+        up = (EditText)findViewById(R.id.first);
     }
 
     private void setOther_image(){
