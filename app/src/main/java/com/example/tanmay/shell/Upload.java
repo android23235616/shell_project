@@ -165,8 +165,6 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
 
     private void initialise(){
-
-
         upoad_toolbar_button=(Button)findViewById(R.id.toolbar_button_Upload);
         linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
         toolbar_name = (TextView)findViewById(R.id.toolbar_content_upload);
