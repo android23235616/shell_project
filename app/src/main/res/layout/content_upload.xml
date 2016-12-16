@@ -30,17 +30,34 @@
         android:background="@drawable/foreground"
         android:layout_gravity="bottom">
 
-
+<LinearLayout
+    android:gravity="bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
         <Button
             android:layout_width="28dp"
             android:layout_height="30dp"
             android:id="@+id/toolbar_button_Upload"
             android:text="+"
-            android:layout_marginBottom="60dp"
+
             android:textSize="26dp"
             android:background="@null"
             />
 
+
+
+        <Button
+            android:layout_width="28dp"
+            android:layout_height="30dp"
+            android:id="@+id/upload"
+
+            android:textSize="26dp"
+            android:background="@drawable/upload_tookbar"
+
+            />
+
+</LinearLayout>
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:orientation="vertical"
@@ -60,16 +77,6 @@
                 android:textColor="#000000"
                 android:hint="Start typing..."/>
 
-            <Button
-                android:layout_marginTop="12dp"
-                android:background="@drawable/button_background"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload"
-                android:padding="7dp"
-                android:gravity="bottom"
-                android:textColor="@color/white"
-                android:textSize="16dp"/>
 
         </LinearLayout>
 
