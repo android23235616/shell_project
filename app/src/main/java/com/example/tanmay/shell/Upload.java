@@ -214,7 +214,6 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         getMenuInflater().inflate(R.menu.upload, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
