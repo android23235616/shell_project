@@ -182,7 +182,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                         ed = (EditText)findViewById(i);
                         mainName=ed.getText().toString();
                     }
-                    display_log(i+"");
+
                 }
             }
         });
