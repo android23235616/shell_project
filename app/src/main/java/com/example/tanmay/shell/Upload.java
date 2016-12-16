@@ -54,6 +54,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     LinearLayout linearLayout;
     EditText editText;
     EditText up;
+    String mainName="";
     int mode;
     List<EditText> allEds  =new ArrayList<>();
     static int TotalEditText=0;
@@ -170,14 +171,15 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
             public void onClick(View v) {
                 final int EditTextLength = TotalEditText+2;
                 for(int i=0; i<=EditTextLength; i++){
+
                     EditText ed;
                     if(i==0)
                     {
                         ed = (EditText)findViewById(R.id.first);
-                        display_log(ed.getText().toString());
+                       mainName=ed.getText().toString();
                     }else{
                         ed = (EditText)findViewById(i);
-                        display_log(ed.getText().toString());
+                        mainName=ed.getText().toString();
                     }
                     display_log(i+"");
                 }
