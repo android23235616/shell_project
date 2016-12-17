@@ -95,6 +95,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                     editText.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) editText.getLayoutParams();
                     layoutParams.setMargins(23, 24, 0, 0);
+                    editText.setText("");
                     editText.setLayoutParams(layoutParams);
                     display_log(TotalEditText+"");
 
@@ -182,6 +183,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                         ed = (EditText)findViewById(i);
                         mainName=ed.getText().toString();
                     }
+                    display_log(mainName);
 
                 }
             }
