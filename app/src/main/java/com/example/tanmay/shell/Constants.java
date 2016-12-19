@@ -10,5 +10,6 @@ public class Constants {
     public static final String REGISTERED = "registered";
     public static final String UNIQUE_ID = "uniqueid";
     public static final String USER_DATA_SHARED_PREF = "usersharedpre32";
+    public static final String USER_UPLOAD_URL = "http://pranshooverma1234.site88.net/shell/universal_table_update.php";
 
 }

@@ -1,5 +1,6 @@
 package com.example.tanmay.shell;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,17 +59,20 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     String name,profile_ic;
     CircleImageView profile_pic;
     //for edittext dynamically
+    RequestQueue s;
+    String[] modeText = {"Other Stuff ", " Movies ", "Games ", "Stationary"};
     Button upoad_toolbar_button,Upload;
     SharedPreferences sharedPreferences;
     LinearLayout linearLayout;
     EditText editText;
+    Map<String,String>[] params;
     EditText up;
     String mainName="",number;
-    int mode;
+    int mode,i,inc=1;
     List<EditText> allEds  =new ArrayList<>();
     static int TotalEditText=0;
     StringBuilder  builder = new StringBuilder();;
-
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,11 +107,11 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                     editText.setTextColor(Color.BLACK);
                     editText.setId(TotalEditText);
                     editText.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
-                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) editText.getLayoutParams();
-                    layoutParams.setMargins(23, 24, 0, 0);
+                    LinearLayout.LayoutParams layoutparams = (LinearLayout.LayoutParams) editText.getLayoutParams();
+                    layoutparams.setMargins(23, 24, 0, 0);
                     editText.setText("");
-                    editText.setLayoutParams(layoutParams);
-                    display(TotalEditText+"");
+                    editText.setLayoutParams(layoutparams);
+                    display(TotalEditText + "");
 
                 }
             }
@@ -139,12 +143,12 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
     private void Click() {
         //final int TotalEditText = this.TotalEditText+1;
-        final String[] modeText = {"Other Stuff "," Movies ", "Games ", "Stationary"};
+        final String[] modeText = {"Other Stuff ", " Movies ", "Games ", "Stationary"};
         other_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mode=1;
-                up.setHint("Enter "+modeText[mode-1]+"Name "+TotalEditText);
+                mode = 1;
+                up.setHint("Enter " + modeText[mode - 1] + "Name " + TotalEditText);
                 doAnimation(Upload.this.menu_toolbar, slide_up);
             }
         });
@@ -152,12 +156,12 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         movies_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mode=2;
+                mode = 2;
 
-                up.setHint("Enter Movie "+TotalEditText);
-                if(menu_toolbar.getAlpha()==0)
+                up.setHint("Enter Movie " + TotalEditText);
+                if (menu_toolbar.getAlpha() == 0)
                     menu_toolbar.setAlpha(1);
-                up.setHint("Enter "+modeText[mode-1]+"Name "+TotalEditText);
+                up.setHint("Enter " + modeText[mode - 1] + "Name " + TotalEditText);
                 doAnimation(Upload.this.menu_toolbar, slide_up);
             }
         });
@@ -165,7 +169,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         stationary_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mode=3;
+                mode = 3;
                 doAnimation(Upload.this.menu_toolbar, slide_up);
                 up.setHint("Enter " + modeText[mode - 1] + "Name " + TotalEditText);
             }
@@ -174,9 +178,9 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         games_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mode=4;
-                doAnimation(Upload.this.menu_toolbar,slide_up);
-                up.setHint("Enter "+modeText[mode-1]+"Name "+TotalEditText);
+                mode = 4;
+                doAnimation(Upload.this.menu_toolbar, slide_up);
+                up.setHint("Enter " + modeText[mode - 1] + "Name " + TotalEditText);
             }
         });
 
@@ -185,134 +189,67 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
             @Override
             public void onClick(View v) {
                 EditText ed;
-                int j=0;
-                for(int i=0; i<=TotalEditText; i++){
 
-                    if(j<1)
-                    {    j=j+1;
-                        ed = (EditText)findViewById(R.id.first);
-                       mainName=ed.getText().toString();
-                        StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://pranshooverma1234.site88.net/shell/universal_table_update.php", new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                display(response);
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                display(error.toString());
-                            }
-                        }){
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String,String> params=new HashMap<String, String>();
-                                //now putting values in table
-                                params.put("phone",number);
-                                if(mode==1)
-                                {
-                                    params.put("type","others");
-                                    params.put("name",mainName);
-                                    params.put("time", String.valueOf(System.currentTimeMillis()));
-                                }
-                                else if(mode==2)
-                                {
-                                    params.put("type","movies");
-                                    params.put("name",mainName);
-                                    params.put("time", String.valueOf(System.currentTimeMillis()));
-                                }
-                                else if(mode==3)
-                                {
-                                    params.put("type","games");
-                                    params.put("name",mainName);
-                                    params.put("time", String.valueOf(System.currentTimeMillis()));
-
-                                }
-                                else if(mode==4)
-                                {
-                                    params.put("type","stationary");
-                                    params.put("name",mainName);
-                                    params.put("time", String.valueOf(System.currentTimeMillis()));
-
-                                }
-
-                                return params;
-                            }
-                        };
-                        RequestQueue s= Volley.newRequestQueue(getApplicationContext());
-
-                        s.add(stringRequest);
+                inc= 1;
+                final int m = TotalEditText + 1;
 
 
-                    }else
-                    {
+                for (i = 0; i <= TotalEditText; i++) {
 
-                        ed = allEds.get(i-1);
-                        mainName=ed.getText().toString();
-                        display_log(mainName);
-                        StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://pranshooverma1234.site88.net/shell/universal_table_update.php", new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                display(response);
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                display(error.toString());
-                            }
-                        }){
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String,String> params=new HashMap<String, String>();
-                                //now putting values in table
-                                params.put("phone",number);
-                                if(mode==1)
-                                {
-                                    params.put("type","others");
-                                    params.put("name",mainName);
-                                    params.put("time", String.valueOf(System.currentTimeMillis()));
-                                }
-                                else if(mode==2)
-                                {
-                                    params.put("type","movies");
-                                    params.put("name",mainName);
-                                    params.put("time", String.valueOf(System.currentTimeMillis()));
-                                }
-                                else if(mode==3)
-                                {
-                                    params.put("type","games");
-                                    params.put("name",mainName);
-                                    params.put("time", String.valueOf(System.currentTimeMillis()));
-
-                                }
-                                else if(mode==4)
-                                {
-                                    params.put("type","stationary");
-                                    params.put("name",mainName);
-                                    params.put("time", String.valueOf(System.currentTimeMillis()));
-
-                                }
-
-                                return params;
-                            }
-                        };
-                        RequestQueue s= Volley.newRequestQueue(getApplicationContext());
-
-                        s.add(stringRequest);
-
-
+                    if (i == 0) {
+                        ed = (EditText) findViewById(R.id.first);
+                    } else {
+                        ed = allEds.get(i - 1);
                     }
+                    String mainName = ed.getText().toString();
+                    display_log("Uploading " + inc + " of " + m);
 
-                    builder.append(mainName + "\n");
-
-                    display_log(i+"");
+                    Upload_Request(mainName, i, m);
                 }
-                display(builder.toString());
             }
         });
     }
 
+    private void Upload_Request(final String name,final int i,final int size){
+
+        StringRequest sr = new StringRequest(Request.Method.POST, Constants.USER_UPLOAD_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                display(response+" for "+i);
+                if(inc>=size)
+                    dialog.dismiss();
+                else {
+
+                    dialog.setMessage("Uploading " + inc + " of " + size);
+                    dialog.show();
+                    display_log("I ran "+inc);
+                    inc++;
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                display(error.toString());
+            }
+        }){
+            @Override
+            protected Map getParams(){
+                String type =  modeText[mode - 1];
+                String time = System.currentTimeMillis()+"";
+                Map<String, String > map = new HashMap<>();
+                map.put("type",type);
+                map.put("name",name);
+                map.put("phone",number);
+                map.put("time",time);
+                return map;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(sr);
+    }
+
     private void display(String s){
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     private void setChildTypeface(){
@@ -331,6 +268,8 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
 
     private void initialise(){
+        s = Volley.newRequestQueue(getApplicationContext());
+        dialog = new ProgressDialog(this);
         Upload = (Button)findViewById(R.id.upload);
         upoad_toolbar_button=(Button)findViewById(R.id.toolbar_button_Upload);
         linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
