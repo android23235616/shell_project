@@ -67,7 +67,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     int mode;
     List<EditText> allEds  =new ArrayList<>();
     static int TotalEditText=0;
-    StringBuilder builder;
+    StringBuilder  builder = new StringBuilder();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +128,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     }
 
     private void display_log(String s){
-        Log.i("info", s);
+        Log.e("info", s);
     }
 
     private void doAnimation(View v, Animation m){
@@ -138,7 +138,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
 
     private void Click() {
-        final int TotalEditText = this.TotalEditText+1;
+        //final int TotalEditText = this.TotalEditText+1;
         final String[] modeText = {"Other Stuff "," Movies ", "Games ", "Stationary"};
         other_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,6 +245,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
                     }else
                     {
+
                         ed = allEds.get(i-1);
                         mainName=ed.getText().toString();
                         display_log(mainName);
@@ -300,9 +301,10 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
 
 
                     }
-                     builder = new StringBuilder();
-                    builder.append(mainName+"\n");
 
+                    builder.append(mainName + "\n");
+
+                    display_log(i+"");
                 }
                 display(builder.toString());
             }
