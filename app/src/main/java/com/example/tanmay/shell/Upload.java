@@ -30,10 +30,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -58,6 +67,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     int mode;
     List<EditText> allEds  =new ArrayList<>();
     static int TotalEditText=0;
+    StringBuilder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +107,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
                     layoutParams.setMargins(23, 24, 0, 0);
                     editText.setText("");
                     editText.setLayoutParams(layoutParams);
-                    display_log(TotalEditText+"");
+                    display(TotalEditText+"");
 
                 }
             }
@@ -124,6 +134,8 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     private void doAnimation(View v, Animation m){
         v.startAnimation(m);
     }
+
+
 
     private void Click() {
         final int TotalEditText = this.TotalEditText+1;
@@ -168,26 +180,137 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
             }
         });
 
+
         Upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int EditTextLength = TotalEditText+2;
-                for(int i=0; i<=EditTextLength; i++){
+                EditText ed;
+                int j=0;
+                for(int i=0; i<=TotalEditText; i++){
 
-                    EditText ed;
-                    if(i==0)
-                    {
+                    if(j<1)
+                    {    j=j+1;
                         ed = (EditText)findViewById(R.id.first);
                        mainName=ed.getText().toString();
-                    }else{
-                        ed = (EditText)findViewById(i);
+                        StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://pranshooverma1234.site88.net/shell/universal_table_update.php", new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                display(response);
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                display(error.toString());
+                            }
+                        }){
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String,String> params=new HashMap<String, String>();
+                                //now putting values in table
+                                params.put("phone",number);
+                                if(mode==1)
+                                {
+                                    params.put("type","others");
+                                    params.put("name",mainName);
+                                    params.put("time", String.valueOf(System.currentTimeMillis()));
+                                }
+                                else if(mode==2)
+                                {
+                                    params.put("type","movies");
+                                    params.put("name",mainName);
+                                    params.put("time", String.valueOf(System.currentTimeMillis()));
+                                }
+                                else if(mode==3)
+                                {
+                                    params.put("type","games");
+                                    params.put("name",mainName);
+                                    params.put("time", String.valueOf(System.currentTimeMillis()));
+
+                                }
+                                else if(mode==4)
+                                {
+                                    params.put("type","stationary");
+                                    params.put("name",mainName);
+                                    params.put("time", String.valueOf(System.currentTimeMillis()));
+
+                                }
+
+                                return params;
+                            }
+                        };
+                        RequestQueue s= Volley.newRequestQueue(getApplicationContext());
+
+                        s.add(stringRequest);
+
+
+                    }else
+                    {
+                        ed = allEds.get(i-1);
                         mainName=ed.getText().toString();
+                        display_log(mainName);
+                        StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://pranshooverma1234.site88.net/shell/universal_table_update.php", new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                display(response);
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                display(error.toString());
+                            }
+                        }){
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String,String> params=new HashMap<String, String>();
+                                //now putting values in table
+                                params.put("phone",number);
+                                if(mode==1)
+                                {
+                                    params.put("type","others");
+                                    params.put("name",mainName);
+                                    params.put("time", String.valueOf(System.currentTimeMillis()));
+                                }
+                                else if(mode==2)
+                                {
+                                    params.put("type","movies");
+                                    params.put("name",mainName);
+                                    params.put("time", String.valueOf(System.currentTimeMillis()));
+                                }
+                                else if(mode==3)
+                                {
+                                    params.put("type","games");
+                                    params.put("name",mainName);
+                                    params.put("time", String.valueOf(System.currentTimeMillis()));
+
+                                }
+                                else if(mode==4)
+                                {
+                                    params.put("type","stationary");
+                                    params.put("name",mainName);
+                                    params.put("time", String.valueOf(System.currentTimeMillis()));
+
+                                }
+
+                                return params;
+                            }
+                        };
+                        RequestQueue s= Volley.newRequestQueue(getApplicationContext());
+
+                        s.add(stringRequest);
+
+
                     }
-                    display_log(mainName);
+                     builder = new StringBuilder();
+                    builder.append(mainName+"\n");
 
                 }
+                display(builder.toString());
             }
         });
+    }
+
+    private void display(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     private void setChildTypeface(){
