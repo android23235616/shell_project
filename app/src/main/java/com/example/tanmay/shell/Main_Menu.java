@@ -3,6 +3,10 @@ package com.example.tanmay.shell;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -97,5 +101,37 @@ public class Main_Menu extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public static class Main_Menu_Page_Adapter extends FragmentPagerAdapter{
+
+        public Main_Menu_Page_Adapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0:
+                    return First_Fragment.newInstance(0,"Movies");
+                case 1:
+                    return First_Fragment.newInstance(1,"Games");
+                case 2:
+                    return First_Fragment.newInstance(2,"Stationary");
+                case 3:
+                    return First_Fragment.newInstance(3,"Others");
+            }
+            return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position){
+            return "Page: "+position;
+        }
     }
 }
