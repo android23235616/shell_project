@@ -140,18 +140,18 @@ public class Main_Menu extends AppCompatActivity
                 case 0:
                     return First_Fragment.newInstance(0,"Movies");
                 case 1:
-                    return Second_Fragment.newInstance(1,"Games");
+                    return First_Fragment.newInstance(1,"Games");
                 case 2:
                     return First_Fragment.newInstance(2,"Stationary");
                 case 3:
-                    return Second_Fragment.newInstance(3,"Others");
+                    return First_Fragment.newInstance(3,"Others");
             }
             return null;
         }
 
         @Override
         public CharSequence getPageTitle(int position){
-            return "Page: "+position;
+            return Constants.TYPES[position];
         }
     }
 }
