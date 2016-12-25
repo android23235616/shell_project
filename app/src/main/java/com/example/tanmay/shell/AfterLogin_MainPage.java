@@ -114,6 +114,10 @@ public class AfterLogin_MainPage extends AppCompatActivity
         {
 
         }
+        else if(id==R.id.bucket)
+        {
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

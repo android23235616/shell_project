@@ -60,7 +60,7 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
     CircleImageView profile_pic;
     //for edittext dynamically
     RequestQueue s;
-    String[] modeText = {"Other Stuff ", " Movies ", "Games ", "Stationary"};
+    String[] modeText = {"Other Stuff", "Movies", "Games", "Stationary"};
     Button upoad_toolbar_button,Upload;
     SharedPreferences sharedPreferences;
     LinearLayout linearLayout;
@@ -359,6 +359,12 @@ public class Upload extends AppCompatActivity implements NavigationView.OnNaviga
         else if(id==R.id.Uploading)
         {
 
+        }
+        else if (id==R.id.bucket)
+        {
+            Toast.makeText(getApplicationContext(),"Bucket",Toast.LENGTH_SHORT).show();
+            Intent f=new Intent(getApplicationContext(),Your_Bucket.class);
+            startActivity(f);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
