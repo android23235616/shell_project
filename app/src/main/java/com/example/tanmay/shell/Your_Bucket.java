@@ -133,7 +133,7 @@ private TabLayout tabLayout;
 
         final String gh= "http://pranshooverma1234.site88.net/shell/recieve_tv.php";
 
-        StringRequest st=new StringRequest(Request.Method.POST, gh, new Response.Listener<String>() {
+        StringRequest st=new  StringRequest(Request.Method.POST, gh, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(Your_Bucket.this, response, Toast.LENGTH_SHORT).show();
