@@ -72,7 +72,7 @@ public class Your_Bucket_Movies extends Fragment {
         StringRequest st=new StringRequest(Request.Method.POST, gh, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
