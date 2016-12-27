@@ -5,13 +5,14 @@
 
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_marginTop="50dp"
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="8dp"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:background="#5DADE2"
-        android:layout_height="match_parent">
-
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        />
 
 
 </LinearLayout>

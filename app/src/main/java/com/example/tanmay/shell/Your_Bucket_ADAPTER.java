@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class Your_Bucket_ADAPTER extends FragmentStatePagerAdapter {
 
-    private String[] tabTitles = new String[]{"Movies", "TV Series","Games" ,"stationary","others"};
+    private String[] tabTitles = new String[]{"Movies", "TV Series","Games" ,"Stationery","Others"};
 
     public Your_Bucket_ADAPTER(FragmentManager fm) {
         super(fm);
@@ -21,29 +21,29 @@ public class Your_Bucket_ADAPTER extends FragmentStatePagerAdapter {
     {
         switch (position){
             case 0:
-                Your_Bucket_Movies a=new Your_Bucket_Movies();
-                return a;
+
+                return new Your_Bucket_Movies();
 
             case 1:
-                Your_Bucket_TV_series b=new Your_Bucket_TV_series();
-                return b;
+
+                return new Your_Bucket_TV_series();
 
             case 2:
 
-                Your_Bucket_Sports c=new Your_Bucket_Sports();
-                return c;
+
+                return new Your_Bucket_Games();
 
             case 3:
 
-                Your_Bucket_Stationary d=new Your_Bucket_Stationary();
-                return d;
+
+                return new Your_Bucket_Stationary();
             case 4:
 
-                Your_Bucket_Others e=new Your_Bucket_Others();
-                return e;
+
+                return new Your_Bucket_Others();
 
             default :
-                    return null;
+                    return new Your_Bucket_Movies();
         }
 
     }

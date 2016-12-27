@@ -34,12 +34,12 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by PRANSHOO VERMA on 24-12-2016.
  */
 
-public class Your_Bucket_Others extends Fragment {
+public class Your_Bucket_Games extends Fragment {
 
     SharedPreferences sharedPreferences;
     String user_phone;
-    static ArrayList<String> name_others=new ArrayList<String>();
-    static ArrayList<String> time_others=new ArrayList<String>();
+    static ArrayList<String> name_games=new ArrayList<String>();
+    static ArrayList<String> time_games=new ArrayList<String>();
     RecyclerView recyclerView;
     AlbumAdapter adapter;
     List<Album> albumList;
@@ -47,24 +47,22 @@ public class Your_Bucket_Others extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v= inflater.inflate(R.layout.your_bucket_others,container,false);
+        View v =inflater.inflate(R.layout.your_bucket_sports,container,false);
 
         recyclerView = (RecyclerView)v.findViewById(R.id.recycler_view);
         sharedPreferences = getActivity().getSharedPreferences(Constants.USER_DATA_SHARED_PREF,MODE_PRIVATE);
         user_phone = sharedPreferences.getString("number","1234");
         albumList=new ArrayList<>();
 
-        fetch_others();
+        fetch_games();
 
         return v;
-
     }
 
-
-    void fetch_others()
+    void fetch_games()
     {
 
-        final String gh= "http://pranshooverma1234.site88.net/shell/recieve_other.php\n";
+        final String gh= "http://pranshooverma1234.site88.net/shell/recieve_game.php\n";
 
         StringRequest st=new StringRequest(Request.Method.POST, gh, new Response.Listener<String>() {
             @Override
@@ -74,23 +72,21 @@ public class Your_Bucket_Others extends Fragment {
                 try {
                     JSONObject jsonObject=new JSONObject(response);
 
-                    JSONArray js=jsonObject.getJSONArray("other_respose");
+                    JSONArray js=jsonObject.getJSONArray("game_respose");
 
                     for(int i=0;i<js.length();i++)
                     {
                         JSONObject c=js.getJSONObject(i);
 
-                        name_others.add(c.getString("name"));
-                        time_others.add(c.getString("time"));
+                        name_games.add(c.getString("name"));
+                        time_games.add(c.getString("time"));
 
-                      //  Toast.makeText(Your_Bucket.this, name_others[i]+""+time_others[i], Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getContext(), name_games[i]+""+time_games[i], Toast.LENGTH_SHORT).show();
                     }
-
-
                     int i=0;
                     while (i < js.length())
                     {
-                        Album a = new Album(name_others.get(i), R.mipmap.ic_launcher);
+                        Album a = new Album(name_games.get(i), R.mipmap.ic_launcher);
                         albumList.add(a);
                         i++;
                     }
@@ -98,6 +94,9 @@ public class Your_Bucket_Others extends Fragment {
                     RecyclerView.LayoutManager mLayout=new GridLayoutManager(getContext(),2);
                     recyclerView.setLayoutManager(mLayout);
                     recyclerView.setAdapter(adapter);
+
+
+
 
                 } catch (JSONException e) {
                     Toast.makeText(getContext(),"Error occured in catch", Toast.LENGTH_SHORT).show();
@@ -124,6 +123,4 @@ public class Your_Bucket_Others extends Fragment {
         re.add(st);
 
     }
-
-
 }

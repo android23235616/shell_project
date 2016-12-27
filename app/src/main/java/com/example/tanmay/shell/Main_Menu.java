@@ -3,6 +3,7 @@ package com.example.tanmay.shell;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,7 +32,6 @@ public class Main_Menu extends AppCompatActivity
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
     ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,7 @@ public class Main_Menu extends AppCompatActivity
         viewPager = (ViewPager)findViewById(R.id.vPager);
         pageAdapter= new Main_Menu_Page_Adapter(getSupportFragmentManager());
         viewPager.setAdapter(pageAdapter);
+
     }
 
     @Override
@@ -124,6 +125,7 @@ public class Main_Menu extends AppCompatActivity
     }
 
     public static class Main_Menu_Page_Adapter extends FragmentPagerAdapter{
+        private String tabTitles[] = new String[] { "MOVIES","TV SERIES", "GAMES", "STATIONERY","OTHERS" };
 
         public Main_Menu_Page_Adapter(FragmentManager fm) {
             super(fm);
@@ -131,27 +133,35 @@ public class Main_Menu extends AppCompatActivity
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return First_Fragment.newInstance(0,"Movies");
+                    return  new MoviesFragment();
+                   // return First_Fragment.newInstance(0,"Movies");
                 case 1:
-                    return First_Fragment.newInstance(1,"Games");
+                  //  return First_Fragment.newInstance(1,"Games");
+                    return new TVFragment();
                 case 2:
-                    return First_Fragment.newInstance(2,"Stationary");
+                    return  new GamesFragment();
+                   // return First_Fragment.newInstance(2,"Stationary");
                 case 3:
-                    return First_Fragment.newInstance(3,"Others");
+                    return new StationaryFragment();
+                  //  return First_Fragment.newInstance(3,"Others");
+                case 4:
+                    return  new OthersFragment();
             }
             return null;
         }
 
-        @Override
+       @Override
         public CharSequence getPageTitle(int position){
-            return Constants.TYPES[position];
+           return tabTitles[position];
         }
+
     }
+
 }

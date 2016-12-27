@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +40,8 @@ private TabLayout tabLayout;
 
     //##TO SOUMYADEB//
 //in these array parsed data gets saved/
-    String[] name_movie=new String[10000];
-    String[] time_movie=new String[10000];
+    ArrayList<String> name_movie=new ArrayList<String>();
+    ArrayList<String> time_movie=new ArrayList<String>();
 
     String[] name_tv=new String[10000];
     String[] time_tv=new String[10000];
@@ -67,7 +68,6 @@ private TabLayout tabLayout;
 
         initialize();
         setAdapter();
-        fetch_movie();
 
     }
 
@@ -77,6 +77,8 @@ private TabLayout tabLayout;
         viewPager=(ViewPager)findViewById(R.id.pager);
 
     }
+
+
     void fetch_movie()
     {
         final String gh="http://pranshooverma1234.site88.net/shell/recieve_movie.php";
@@ -95,10 +97,10 @@ private TabLayout tabLayout;
                     {
                         JSONObject c=js.getJSONObject(i);
 
-                        name_movie[i] =c.getString("name");
-                        time_movie[i]=c.getString("time");
+                        name_movie.add(c.getString("name"));
+                        time_movie.add(c.getString("time"));
 
-                        Toast.makeText(Your_Bucket.this, name_movie[i]+""+time_movie[i], Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Your_Bucket.this, name_movie.get(i)+""+time_movie.get(i), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -346,10 +348,11 @@ private TabLayout tabLayout;
 
         viewPager.setPageTransformer(true,new RotateUpTransformer());
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+      /*  tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition())
+
+              /*  switch (tab.getPosition())
                 {
                     case 0:fetch_movie();
                         break;
@@ -380,7 +383,7 @@ private TabLayout tabLayout;
 
             }
         });
-
+*/
     }
 
 
