@@ -1,5 +1,6 @@
 package com.example.tanmay.shell;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.ToxicBakery.viewpager.transforms.RotateDownTransformer;
@@ -105,18 +107,29 @@ public class Main_Menu extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+
+        if (id == R.id.send_request) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.received_request) {
+            Toast.makeText(this, "Received Request pressed", Toast.LENGTH_SHORT).show();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.Profile) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.logout)
+        {
 
-        } else if (id == R.id.nav_share) {
+        }
+        else if(id==R.id.home)
+        {
 
-        } else if (id == R.id.nav_send) {
+        }
+        else if(id==R.id.Uploading)
+        {
 
+        }
+        else if(id==R.id.bucket)
+        {
+            startActivity(new Intent(this, Your_Bucket.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,11 @@ public class Your_Bucket_Movies extends Fragment {
                         // Toast.makeText(getContext(), name_movie[i], Toast.LENGTH_SHORT).show();
                         //+""+time_movie.get(i)
                     }
+                   //// String[] time_ago=new String[20];
+                  //  for (int i = 0; i <time_movie.size(); i++) {
+                  //      time_ago[i] = DateUtils.getRelativeTimeSpanString(time_movies[i], System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
+                  //  }
+
                     int i = 0;
 
                     //Toast.makeText(getContext(),name_movie[1],Toast.LENGTH_LONG).show();

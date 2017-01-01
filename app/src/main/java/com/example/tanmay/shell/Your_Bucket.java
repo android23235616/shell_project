@@ -42,7 +42,7 @@ private TabLayout tabLayout;
 //in these array parsed data gets saved/
     ArrayList<String> name_movie=new ArrayList<String>();
     ArrayList<String> time_movie=new ArrayList<String>();
-
+/*
     String[] name_tv=new String[10000];
     String[] time_tv=new String[10000];
 
@@ -54,7 +54,7 @@ private TabLayout tabLayout;
 
     String[] name_others=new String[10000];
     String[] time_others=new String[10000];
-
+*/
 //OVER//
 
 
@@ -78,7 +78,7 @@ private TabLayout tabLayout;
 
     }
 
-
+/*
     void fetch_movie()
     {
         final String gh="http://pranshooverma1234.site88.net/shell/recieve_movie.php";
@@ -337,7 +337,7 @@ private TabLayout tabLayout;
     }
 
 
-
+*/
 
     void setAdapter() {
         Your_Bucket_ADAPTER adapter=new Your_Bucket_ADAPTER(getSupportFragmentManager());
