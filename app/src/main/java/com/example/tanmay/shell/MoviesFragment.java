@@ -53,7 +53,7 @@ public class MoviesFragment extends Fragment {
     }
     private void prepareAlbums()
     {
-        int[] movies=new int[]{R.drawable.cap_america,R.drawable.ironman,R.drawable.dark_knight,R.drawable.civil_war,R.drawable.suicide_squad,R.drawable.american_pie};
+        int[] movies=new int[]{R.drawable.a,R.drawable.background_circle,R.drawable.movie_cover,R.drawable.smovie,R.drawable.other_cover,R.drawable.profile};
         Album a=new Album("Captain America",movies[0]);
         albumList.add(a);
 

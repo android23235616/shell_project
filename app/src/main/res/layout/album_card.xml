@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                card_view:srcCompat="@drawable/menu"
+                card_view:srcCompat="@drawable/ic_menu_camera"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="16dp"
                 android:layout_alignParentEnd="true"

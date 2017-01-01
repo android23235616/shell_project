@@ -348,11 +348,11 @@ private TabLayout tabLayout;
 
         viewPager.setPageTransformer(true,new RotateUpTransformer());
 
-      /*  tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+     /*   tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-              /*  switch (tab.getPosition())
+            switch (tab.getPosition())
                 {
                     case 0:fetch_movie();
                         break;
@@ -382,8 +382,8 @@ private TabLayout tabLayout;
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-        });
-*/
+        });*/
+
     }
 
 

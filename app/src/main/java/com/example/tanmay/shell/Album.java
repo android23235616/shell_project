@@ -4,7 +4,7 @@ package com.example.tanmay.shell;
 public class Album {
     private String name;
     private int thumbnail=R.mipmap.ic_launcher;
-    private double time;
+    private String time;
 
     public Album(String name, int thumbnail)
     {
@@ -12,7 +12,7 @@ public class Album {
         this.thumbnail=thumbnail;
     }
 
-    public Album(String name, int thumbnail,double time)
+    public Album(String name, int thumbnail, String time)
     {
         this.time=time;
         this.name=name;
@@ -28,7 +28,7 @@ public class Album {
         return thumbnail;
     }
 
-    public double getTime() {
+    public String getTime() {
         return time;
     }
 

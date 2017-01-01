@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,8 @@ public class Your_Bucket_Stationary extends Fragment {
     RecyclerView recyclerView;
     AlbumAdapter adapter;
     List<Album> albumList;
+    String time[]=new String[20000];
+    String time_stationary_span[]=new String[20000];
 
     @Nullable
     @Override
@@ -78,13 +81,17 @@ public class Your_Bucket_Stationary extends Fragment {
                         name_stationery.add(c.getString("name"));
                         time_stationery.add(c.getString("time"));
 
+
+                        time[i]=c.getString("time");
+                        time_stationary_span[i]= String.valueOf(DateUtils.getRelativeTimeSpanString(Long.parseLong(time[i]),System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS));
+
                         //Toast.makeText(Your_Bucket.this, name_stationary[i]+""+time_stationary[i], Toast.LENGTH_SHORT).show();
                     }
 
                     int i=0;
                     while (i < js.length())
                     {
-                        Album a = new Album(name_stationery.get(i), R.mipmap.ic_launcher);
+                        Album a = new Album(name_stationery.get(i), R.mipmap.ic_launcher,time_stationary_span[i]);
                         albumList.add(a);
                         i++;
                     }

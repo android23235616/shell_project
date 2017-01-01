@@ -53,7 +53,7 @@ public class OthersFragment extends Fragment {
     }
     private void prepareAlbums()
     {
-        int[] movies=new int[]{R.drawable.got,R.drawable.friends,R.drawable.himym,R.drawable.vd,R.drawable.flash,R.drawable.arrow};
+        int[] movies=new int[]{R.drawable.a,R.drawable.background_circle,R.drawable.movie_cover,R.drawable.smovie,R.drawable.other_cover,R.drawable.profile};
         Album a=new Album("Game of Thrones",movies[0]);
         albumList.add(a);
 

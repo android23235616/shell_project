@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,8 @@ public class Your_Bucket_Games extends Fragment {
     String user_phone;
     static ArrayList<String> name_games=new ArrayList<String>();
     static ArrayList<String> time_games=new ArrayList<String>();
+    String time[]=new String[20000];
+    String time_games_span[]=new String[20000];
     RecyclerView recyclerView;
     AlbumAdapter adapter;
     List<Album> albumList;
@@ -81,12 +84,15 @@ public class Your_Bucket_Games extends Fragment {
                         name_games.add(c.getString("name"));
                         time_games.add(c.getString("time"));
 
-                       // Toast.makeText(getContext(), name_games[i]+""+time_games[i], Toast.LENGTH_SHORT).show();
+                        time[i]=c.getString("time");
+                        time_games_span[i]= String.valueOf(DateUtils.getRelativeTimeSpanString(Long.parseLong(time[i]),System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS));
+
+                 //       Toast.makeText(getContext(),""+time_games_span[i], Toast.LENGTH_SHORT).show();
                     }
                     int i=0;
                     while (i < js.length())
                     {
-                        Album a = new Album(name_games.get(i), R.mipmap.ic_launcher);
+                        Album a = new Album(name_games.get(i), R.mipmap.ic_launcher,time_games_span[i]);
                         albumList.add(a);
                         i++;
                     }

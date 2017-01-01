@@ -53,7 +53,7 @@ public class GamesFragment extends Fragment {
     }
     private void prepareAlbums()
     {
-        int[] movies=new int[]{R.drawable.gta,R.drawable.black_ops,R.drawable.witcher3,R.drawable.overwatch,R.drawable.warcraft,R.drawable.fifa};
+        int[] movies=new int[]{R.drawable.a,R.drawable.background_circle,R.drawable.movie_cover,R.drawable.smovie,R.drawable.other_cover,R.drawable.profile};
         Album a=new Album("GTA-5",movies[0]);
         albumList.add(a);
 

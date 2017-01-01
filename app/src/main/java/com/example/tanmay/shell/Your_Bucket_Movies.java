@@ -43,6 +43,8 @@ public class Your_Bucket_Movies extends Fragment {
     RecyclerView recyclerView;
     private AlbumAdapter adapter;
     private List<Album> albumList;
+    String time[]=new String[20000];
+    String time_movies_span[]=new String[20000];
 
 
     @Nullable
@@ -86,7 +88,11 @@ public class Your_Bucket_Movies extends Fragment {
                         //   albumList.add(a);
 
                         name_movie.add(c.getString("name"));
-                        time_movie.add(c.getString("time"));
+                 //       time_movie.add(c.getString("time"));
+
+                        time[i]=c.getString("time");
+                        time_movies_span[i]= String.valueOf(DateUtils.getRelativeTimeSpanString(Long.parseLong(time[i]),System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS));
+
 
                         // Toast.makeText(getContext(), name_movie[i], Toast.LENGTH_SHORT).show();
                         //+""+time_movie.get(i)
@@ -101,7 +107,7 @@ public class Your_Bucket_Movies extends Fragment {
                     //Toast.makeText(getContext(),name_movie[1],Toast.LENGTH_LONG).show();
                     while (i < js.length())
                     {
-                        Album a = new Album(name_movie.get(i), R.mipmap.ic_launcher);
+                        Album a = new Album(name_movie.get(i), R.mipmap.ic_launcher,time_movies_span[i]);
                         albumList.add(a);
                         i++;
                     }

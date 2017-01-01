@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,8 @@ public class Your_Bucket_TV_series extends Fragment {
     RecyclerView recyclerView;
     private AlbumAdapter adapter;
     private List<Album> albumList;
-
+    String time[]=new String[20000];
+    String time_tv_span[]=new String[20000];
 
 
     @Nullable
@@ -84,7 +86,11 @@ public class Your_Bucket_TV_series extends Fragment {
                         name_tv.add(c.getString("name"));
                         time_tv.add(c.getString("time"));
 
-                    //    Toast.makeText(getContext(), name_tv[i]+""+time_tv[i], Toast.LENGTH_SHORT).show();
+                        time[i]=c.getString("time");
+                        time_tv_span[i]= String.valueOf(DateUtils.getRelativeTimeSpanString(Long.parseLong(time[i]),System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS));
+
+
+                        //    Toast.makeText(getContext(), name_tv[i]+""+time_tv[i], Toast.LENGTH_SHORT).show();
                     }
 
                     int i = 0;
@@ -92,7 +98,7 @@ public class Your_Bucket_TV_series extends Fragment {
                     //Toast.makeText(getContext(),name_movie[1],Toast.LENGTH_LONG).show();
                     while (i < js.length())
                     {
-                        Album a = new Album(name_tv.get(i), R.mipmap.ic_launcher);
+                        Album a = new Album(name_tv.get(i), R.mipmap.ic_launcher,time_tv_span[i]);
                         albumList.add(a);
                         i++;
                     }
