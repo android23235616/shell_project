@@ -4,9 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-/**
- * Created by PRANSHOO VERMA on 24-12-2016.
- */
 
 public class Your_Bucket_ADAPTER extends FragmentStatePagerAdapter {
 
@@ -21,27 +18,18 @@ public class Your_Bucket_ADAPTER extends FragmentStatePagerAdapter {
     {
         switch (position){
             case 0:
-
                 return new Your_Bucket_Movies();
 
             case 1:
-
                 return new Your_Bucket_TV_series();
 
             case 2:
-
-
                 return new Your_Bucket_Games();
 
             case 3:
-
-
                 return new Your_Bucket_Stationary();
             case 4:
-
-
                 return new Your_Bucket_Others();
-
             default :
                     return new Your_Bucket_Movies();
         }

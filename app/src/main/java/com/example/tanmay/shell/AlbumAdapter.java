@@ -18,12 +18,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     private List<Album> albumList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
+        public TextView title,time;
         public ImageView thumbnail;
 
         public MyViewHolder(View view) {
             super(view);
             title= (TextView) view.findViewById(R.id.title);
+            time= (TextView) view.findViewById(R.id.time);
             thumbnail= (ImageView) view.findViewById(R.id.thumbnail);
         }
 
@@ -46,6 +47,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     {
         Album album=albumList.get(position);
         holder.title.setText(album.getName());
+        holder.time.setText(album.getTime());
        // holder.thumbnail.setImageResource(album.getThumbnail());
        Glide.with(mContext).load(album.getThumbnail()).into(holder.thumbnail);
     }

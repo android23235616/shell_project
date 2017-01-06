@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,11 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,9 +28,6 @@ import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
-/**
- * Created by PRANSHOO VERMA on 24-12-2016.
- */
 
 public class Your_Bucket_Movies extends Fragment {
     SharedPreferences sharedPreferences;
@@ -75,7 +69,6 @@ public class Your_Bucket_Movies extends Fragment {
         StringRequest st=new StringRequest(Request.Method.POST, gh, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-             //   Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -84,8 +77,6 @@ public class Your_Bucket_Movies extends Fragment {
 
                     for (int i = 0; i < js.length(); i++) {
                         JSONObject c = js.getJSONObject(i);
-                        //   Album a = new Album(c.getString("name"));
-                        //   albumList.add(a);
 
                         name_movie.add(c.getString("name"));
                  //       time_movie.add(c.getString("time"));
@@ -94,22 +85,16 @@ public class Your_Bucket_Movies extends Fragment {
                         time_movies_span[i]= String.valueOf(DateUtils.getRelativeTimeSpanString(Long.parseLong(time[i]),System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS));
 
 
-                        // Toast.makeText(getContext(), name_movie[i], Toast.LENGTH_SHORT).show();
-                        //+""+time_movie.get(i)
                     }
-                   //// String[] time_ago=new String[20];
-                  //  for (int i = 0; i <time_movie.size(); i++) {
-                  //      time_ago[i] = DateUtils.getRelativeTimeSpanString(time_movies[i], System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
-                  //  }
 
                     int i = 0;
 
-                    //Toast.makeText(getContext(),name_movie[1],Toast.LENGTH_LONG).show();
                     while (i < js.length())
                     {
                         Album a = new Album(name_movie.get(i), R.mipmap.ic_launcher,time_movies_span[i]);
                         albumList.add(a);
                         i++;
+                        Toast.makeText(getContext(),time_movies_span[i],Toast.LENGTH_SHORT).show();
                     }
                     adapter=new AlbumAdapter(getContext(),albumList);
                     RecyclerView.LayoutManager mLayout=new GridLayoutManager(getContext(),2);
