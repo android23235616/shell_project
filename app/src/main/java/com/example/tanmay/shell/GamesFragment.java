@@ -6,19 +6,38 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class GamesFragment extends Fragment {
 
+    static ArrayList<String> name_game=new ArrayList<String>();
     RecyclerView recyclerView;
     private AlbumAdapter adapter;
     private List<Album> albumList;
+    String time[]=new String[20000];
+    String time_span[]=new String[20000];
 
     public GamesFragment() {
         // Required empty public constructor
@@ -46,62 +65,79 @@ public class GamesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-
-        prepareAlbums();
-
+        fetch_game();
         return v;
     }
-    private void prepareAlbums()
+    void fetch_game()
     {
-        int[] movies=new int[]{R.drawable.a,R.drawable.background_circle,R.drawable.movie_cover,R.drawable.smovie,R.drawable.other_cover,R.drawable.profile};
-        Album a=new Album("GTA-5",movies[0]);
-        albumList.add(a);
+        final String gh="http://pranshooverma1234.site88.net/shell/universal_data_recieve.php";
 
-        a=new Album("Black Ops 3",movies[1]);
-        albumList.add(a);
+        StringRequest st=new StringRequest(Request.Method.POST, gh, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-        a=new Album("The Witcher-3",movies[2]);
-        albumList.add(a);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
 
-        a=new Album("Overwatch",movies[3]);
-        albumList.add(a);
+                    JSONArray js = jsonObject.getJSONArray("response");
 
-        a=new Album("World of Warcraft",movies[4]);
-        albumList.add(a);
+                    for (int i = 0; i < js.length(); i++) {
+                        JSONObject c = js.getJSONObject(i);
 
-        a=new Album("FIFA-16",movies[5]);
-        albumList.add(a);
+                        name_game.add(c.getString("name"));
+                        //       time_movie.add(c.getString("time"));
+
+                        time[i]=c.getString("time");
+                        time_span[i]= String.valueOf(DateUtils.getRelativeTimeSpanString(Long.parseLong(time[i]),System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS));
 
 
+                    }
+
+                    int i = 0;
+
+                    while (i < js.length())
+                    {
+                        Album a = new Album(name_game.get(i), R.mipmap.ic_launcher,time_span[i]);
+                        albumList.add(a);
+                        i++;
+                        //    Toast.makeText(getContext(),time_span[i],Toast.LENGTH_SHORT).show();
+                    }
+                    adapter=new AlbumAdapter(getContext(),albumList);
+                    RecyclerView.LayoutManager mLayout=new GridLayoutManager(getContext(),2);
+                    recyclerView.setLayoutManager(mLayout);
+                    recyclerView.setAdapter(adapter);
+
+
+                } catch (JSONException e) {
+                    Toast.makeText(getContext(),"Error occured in catch", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+
+            }
+
+
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error Occured,Try Again!", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+
+
+                params.put("type","Games");
+
+                return params;
+            }
+
+        };
+        RequestQueue re= Volley.newRequestQueue(getContext());
+        re.add(st);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }
